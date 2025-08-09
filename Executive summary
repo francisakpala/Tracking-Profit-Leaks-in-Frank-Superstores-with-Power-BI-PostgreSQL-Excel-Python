@@ -1,0 +1,180 @@
+# 📊 Profitability Diagnostic Dashboard – Superstore Product Analysis (2014–2018)
+
+This project analyzes the **Sample Superstore dataset** to uncover where a retail business may be **losing profits**, and helps answer critical questions like:
+
+- Which product categories consistently underperform?
+- Which regions or customer segments are draining profit margins?
+- How do costs and discounts affect overall profitability?
+- Where is strategic business intervention most needed?
+
+> ⚠️ Note: The data for 2018 only includes transactions from the first 5 days of the year. Custom DAX formulas were used to ensure year-by-year comparisons remain accurate.
+
+---
+
+## ✅ Key Insights from the Dashboard
+
+### 1️⃣ Which Products or Sub-Categories Consistently Underperform?
+
+The **bottom 3 loss-making subcategories** from 2014 to 2018 were:
+
+- **Tables**
+- **Bookcases**
+- **Supplies**
+
+These categories posted **negative profits every year**, with **Tables** being the worst performer. Even when total revenue increased, these subcategories continued to drag down profitability — likely due to:
+
+- High cost of goods
+- Excessive discounting
+- Low or stagnant sales volume
+
+**Action**: Evaluate whether to reprice, redesign, or discontinue these subcategories.
+
+---
+
+### 2️⃣ Which Regions or Customer Segments Are Draining Margins?
+
+- The **East** and **Central** regions had the **highest cumulative losses** on the worst-performing products.
+- The **West** region was the most consistent in generating positive profits, especially in categories like **Phones** and **Copiers**.
+
+**Action**: Audit operational costs, logistics, and sales practices in underperforming regions. Apply successful strategies from the West to other regions.
+
+---
+
+### 3️⃣ How Do Costs and Discounts Impact Overall Profitability?
+
+- Deep discounts were heavily applied to loss-making categories.
+- In some years, **costs outpaced revenue growth**, leading to shrinking profit margins.
+- Analysis of the **cost-to-profit relationship** showed that the business was becoming less efficient over time.
+
+**Action**: Limit discounts in categories already showing loss trends. Introduce cost audits and improve pricing strategy.
+
+---
+
+### 4️⃣ Which Operations Need Strategic Intervention?
+
+Problem areas that require attention:
+
+- **Pricing strategies** for Tables and Bookcases
+- **Inefficient branch performance** in the East and Central regions
+- **Lack of bundling strategy** for underperforming Supplies products
+
+**Action**: Set performance KPIs by region, implement pricing reviews, and explore bundling underperforming products with bestsellers.
+
+---
+
+## 🎯 Project Goals and Deliverables
+
+### 🅰️ Track Profit Leaks Across Product Lines, Categories, and Regions
+- Custom DAX measures isolate **total loss per category**.
+- Time-series visuals show **when and where** losses occurred.
+- Filters and slicers allow real-time interaction with specific categories or years.
+
+### 🅱️ Identify Loss-Making Products and Inefficient Branches
+- The dashboard ranks subcategories by **cumulative loss**.
+- A regional breakdown highlights **inefficiencies at the branch level**.
+
+### 🅲 Visualize Real-Time Profit Margins and Cost Breakdown
+- Included measures for:
+  - `Total Profit`
+  - `Total Cost`
+  - `Profit Margin %`
+- Yearly breakdowns built with DAX using:
+  ```dax
+  total cost (2018) = 
+  CALCULATE(
+      [total cost],
+      FILTER(
+          'clean_superstore',
+          YEAR([Ship Date]) = 2018
+      )
+  )
+# 📊 Profitability Diagnostic Dashboard – Superstore Product Analysis (2014–2018)
+
+This project analyzes the **Sample Superstore dataset** to uncover where a retail business may be **losing profits**, and helps answer critical questions like:
+
+- Which product categories consistently underperform?
+- Which regions or customer segments are draining profit margins?
+- How do costs and discounts affect overall profitability?
+- Where is strategic business intervention most needed?
+
+> ⚠️ Note: The data for 2018 only includes transactions from the first 5 days of the year. Custom DAX formulas were used to ensure year-by-year comparisons remain accurate.
+
+---
+
+## ✅ Key Insights from the Dashboard
+
+### 1️⃣ Which Products or Sub-Categories Consistently Underperform?
+
+The **bottom 3 loss-making subcategories** from 2014 to 2018 were:
+
+- **Tables**
+- **Bookcases**
+- **Supplies**
+
+These categories posted **negative profits every year**, with **Tables** being the worst performer. Even when total revenue increased, these subcategories continued to drag down profitability — likely due to:
+
+- High cost of goods
+- Excessive discounting
+- Low or stagnant sales volume
+
+**Action**: Evaluate whether to reprice, redesign, or discontinue these subcategories.
+
+---
+
+### 2️⃣ Which Regions or Customer Segments Are Draining Margins?
+
+- The **East** and **Central** regions had the **highest cumulative losses** on the worst-performing products.
+- The **West** region was the most consistent in generating positive profits, especially in categories like **Phones** and **Copiers**.
+
+**Action**: Audit operational costs, logistics, and sales practices in underperforming regions. Apply successful strategies from the West to other regions.
+
+---
+
+### 3️⃣ How Do Costs and Discounts Impact Overall Profitability?
+
+- Deep discounts were heavily applied to loss-making categories.
+- In some years, **costs outpaced revenue growth**, leading to shrinking profit margins.
+- Analysis of the **cost-to-profit relationship** showed that the business was becoming less efficient over time.
+
+**Action**: Limit discounts in categories already showing loss trends. Introduce cost audits and improve pricing strategy.
+
+---
+
+### 4️⃣ Which Operations Need Strategic Intervention?
+
+Problem areas that require attention:
+
+- **Pricing strategies** for Tables and Bookcases
+- **Inefficient branch performance** in the East and Central regions
+- **Lack of bundling strategy** for underperforming Supplies products
+
+**Action**: Set performance KPIs by region, implement pricing reviews, and explore bundling underperforming products with bestsellers.
+
+---
+
+## 🎯 Project Goals and Deliverables
+
+### 🅰️ Track Profit Leaks Across Product Lines, Categories, and Regions
+- Custom DAX measures isolate **total loss per category**.
+- Time-series visuals show **when and where** losses occurred.
+- Filters and slicers allow real-time interaction with specific categories or years.
+
+### 🅱️ Identify Loss-Making Products and Inefficient Branches
+- The dashboard ranks subcategories by **cumulative loss**.
+- A regional breakdown highlights **inefficiencies at the branch level**.
+
+### 🅲 Visualize Real-Time Profit Margins and Cost Breakdown
+- Included measures for:
+  - `Total Profit`
+  - `Total Cost`
+  - `Profit Margin %`
+- Yearly breakdowns built with DAX using:
+  ```dax
+  total cost (2018) = 
+  CALCULATE(
+      [total cost],
+      FILTER(
+          'clean_superstore',
+          YEAR([Ship Date]) = 2018
+      )
+  )
