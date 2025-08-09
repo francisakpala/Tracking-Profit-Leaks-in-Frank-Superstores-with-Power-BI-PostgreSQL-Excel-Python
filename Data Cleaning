@@ -1,0 +1,82 @@
+ **Full Data Cleaning & Import Process for 'Sample - Superstore.csv' in PostgreSQL**
+After importing this dataset, I spent significant time cleaning it to make it usable on my PostgreSQL database, due to CSV import issues, misaligned columns, and inconsistent formats. This is not uncommon in a real-world data analyst scenario.
+> Here are the detailed steps I took to tackle the issues I encountered with the dataset and the solutions to the challenges
+> This list captures everything from identifying the problem to successful data import.
+
+1. Initial Problem Encountered
+Error Message in PostgreSQL:
+ERROR: invalid byte sequence for encoding "UTF8": 0xa0
+CONTEXT: COPY super_store, line 13
+Cause: The CSV contained non-UTF8 characters (specifically a non-breaking space 0xA0)—a common problem with Excel-generated files or files with hidden characters.
+Action: I suspected encoding issues and explored converting or re-saving the file.
+
+2. Attempted Fix: Changing Encoding to LATIN1
+Approach:
+I tried using PostgreSQL’s COPY with ENCODING 'LATIN1' to bypass the UTF-8 encoding error.
+New Error:
+yaml
+CopyEdit
+ERROR: unterminated CSV quoted field
+CONTEXT: COPY super_store, line 9996
+Cause: A row (line 9996) had unmatched or improperly escaped quotes in the CSV file.
+Solving this was tricky. After manually inspecting the CSV file using VS Code, I found that line 9996 was empty, but it kept generating this problem.
+
+3. Writing a Python Script to Clean the CSV
+I created a Python script using pandas to:
+Open the CSV with encoding='latin1'
+Remove problematic characters
+Re-save the file cleanly with proper quoting
+
+Script:
+
+import pandas as pd
+
+input_file = 'Sample - Superstore.csv'
+output_file = 'clean_superstore.csv'
+
+df = pd.read_csv(input_file, encoding='latin1')
+
+df.columns = df.columns.str.strip()
+
+df.to_csv(output_file, index=False, encoding='latin1', quoting=1)
+
+Key Parameters:
+quoting=1 ensures QUOTE_ALL fields
+
+encoding='latin1' retains compatibility with PostgreSQL import
+
+4. Switched from COPY to \copy
+Why?
+ PostgreSQL’s COPY runs server-side and requires elevated file permissions.
+ We got:
+ERROR: could not open file "...": Permission denied
+HINT: Use \copy for client-side import.
+Fix: We launched the PostgreSQL client using:
+psql -U postgres -d Frank-Superstores
+
+ 5. Successful Data Import using \copy
+We ran the final working command in the PostgreSQL CLI:
+sql
+
+\copy super_store(
+    row_id, order_id, order_date, ship_date, ship_mode,
+    customer_id, customer_name, segment, country, city, state,
+    postal_code, region, product_id, category, sub_category,
+    product_name, sales, quantity, discount, profit
+)
+FROM 'C:/Users/PC/Desktop/cleanup_file/clean_superstore.csv'
+WITH (
+    FORMAT csv,
+    HEADER true,
+    ENCODING 'LATIN1',
+    QUOTE '"',
+    ESCAPE '"'
+);
+
+Result:
+Success! The data was now clean and fully loaded into PostgreSQL.
+
+6. Final Outcome
+Data successfully imported: 9,994 rows
+Cleaned of: Encoding errors, unterminated quotes, and extra spaces
+Prepared for: Visualization or analysis in Power BI, Excel, or SQL
